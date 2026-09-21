@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ECHOID — Презентация: Рынок ценных бумаг</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Sora:wght@200;300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #000000;
+            --text: #ffffff;
+            --text-dim: rgba(255,255,255,0.62);
+            --text-dimmer: rgba(255,255,255,0.42);
+            --line: rgba(255,255,255,0.14);
+            --line-strong: rgba(255,255,255,0.26);
+            --fill-ghost: rgba(255,255,255,0.05);
+            --fill-solid: rgba(255,255,255,0.10);
+            --gutter: clamp(20px, 5vw, 100px);
+            --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+            
+            --font-display: "Sora", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border-radius: 0 !important; /* Strict sharp edges requirement */
+        }
+
+        html, body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-display);
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Hide main body scroll */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .media-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+        }
+
+        .media-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .scrim {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: 
+                linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 22%, transparent 78%, rgba(0,0,0,0.65) 100%),
+                linear-gradient(to right, transparent 0%, transparent 45%, rgba(0,0,0,0.45) 72%, rgba(0,0,0,0.72) 100%);
+            pointer-events: none;
+        }
+
+        @media (max-width: 720px) {
+            .scrim {
+                background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.25) 30%, rgba(0,0,0,0.75) 100%);
+            }
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(20px, 2.4vw, 34px) var(--gutter);
+            z-index: 60;
+            pointer-events: none; /* Let clicks pass through if needed, except for links */
+        }
+
+        .nav > * {
+            pointer-events: auto;
+        }
+
+        .nav__logo {
+            font-family: var(--font-display);
+            font-weight: 200;
+            font-size: clamp(20px, 1.75vw, 30px);
+            letter-spacing: 0.16em;
+            color: var(--text);
+            text-decoration: none;
+            line-height: 1;
+        }
+
+        .nav__indicator {
+            font-family: var(--font-mono);
+            font-weight: 400;
+            font-size: clamp(11px, 0.78vw, 14px);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            padding: clamp(8px, 1vw, 12px) clamp(16px, 1.5vw, 24px);
+            border: 1px solid var(--line-strong);
+            background: rgba(4, 4, 6, 0.4);
+            backdrop-filter: blur(8px);
+        }
+
+        .scroll-container {
+            position: relative;
+            z-index: 10;
+            height: 100dvh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slide {
+            scroll-snap-align: start;
+            height: 100dvh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 var(--gutter);
+            position: relative;
+        }
+
+        .slide--hero {
+            justify-content: flex-end;
+        }
+
+        .slide--content {
+            justify-content: center;
+        }
+
+        .panel {
+            width: min(90vw, 800px);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .slide--hero .panel {
+            width: min(34vw, 620px);
+            min-width: 380px;
+        }
+        
+        @media (max-width: 1100px) {
+            .slide--hero .panel {
+                width: min(70vw, 520px);
+                min-width: 0;
+            }
+        }
+        @media (max-width: 720px) {
+            .slide--hero { justify-content: center; }
+            .slide--hero .panel { width: 100%; align-items: stretch; }
+            .slide--content .panel { width: 100%; }
+        }
+
+        .content-box {
+            background: rgba(4, 4, 6, 0.65);
+            backdrop-filter: blur(28px) saturate(140%);
+            border: 1px solid var(--line-strong);
+            padding: clamp(30px, 4vw, 60px);
+            width: 100%;
+        }
+
+        .chip {
+            font-family: var(--font-mono);
+            font-weight: 400;
+            font-size: clamp(11px, 0.72vw, 14px);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            background: rgba(255,255,255,0.09);
+            padding: clamp(9px, 0.8vw, 14px) clamp(14px, 1.1vw, 20px);
+            line-height: 1;
+            margin-bottom: clamp(24px, 3vw, 42px);
+            display: inline-block;
+        }
+
+        .h1 {
+            font-family: var(--font-display);
+            font-weight: 200;
+            font-size: clamp(44px, 6vw, 108px);
+            letter-spacing: 0.03em;
+            line-height: 0.95;
+            margin-bottom: clamp(14px, 1.4vw, 24px);
+            text-transform: uppercase;
+        }
+
+        .h2 {
+            font-family: var(--font-display);
+            font-weight: 300;
+            font-size: clamp(26px, 3.5vw, 52px);
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+            margin-bottom: clamp(20px, 2.5vw, 40px);
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-family: var(--font-mono);
+            font-weight: 300;
+            font-size: clamp(11px, 0.94vw, 17px);
+            letter-spacing: 0.14em;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+
+        .body-text {
+            font-family: var(--font-mono); /* Switched to mono for ECHOID data aesthetic */
+            font-weight: 300;
+            font-size: clamp(13px, 1.1vw, 16px);
+            line-height: 1.7;
+            color: var(--text-dim);
+            letter-spacing: 0.02em;
+        }
+        
+        .body-text p {
+            margin-bottom: 20px;
+        }
+        
+        .body-text ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            list-style-type: square;
+        }
+        
+        .body-text li {
+            margin-bottom: 14px;
+            padding-left: 8px;
+        }
+
+        .body-text strong, .highlight {
+            color: var(--text);
+            font-weight: 400;
+            background: rgba(255,255,255,0.1);
+            padding: 2px 6px;
+        }
+        
+        .example-block {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--line-strong);
+            color: var(--text-dimmer);
+        }
+
+        .btn--ghost {
+            display: inline-block;
+            margin-top: 30px;
+            padding: clamp(17px,1.6vw,27px) 40px;
+            border: 1px solid var(--line-strong);
+            background: var(--fill-ghost);
+            color: var(--text);
+            font-family: var(--font-mono);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            font-size: clamp(11px,0.78vw,14px);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn--ghost:hover {
+            background: rgba(255,255,255,0.09);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: clamp(30px, 4vw, 50px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--text-dimmer);
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, 0); }
+            50% { opacity: 1; transform: translate(-50%, 5px); }
+        }
+
+        .anim-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s var(--ease-premium), transform 0.8s var(--ease-premium);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+
+        /* Trigger class added by IntersectionObserver JS */
+        .slide.is-visible .anim-element {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            .media-bg video { display: none; }
+            .media-bg {
+                background-image: url('https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_132328_5f9029c8-218f-4489-82b6-29ff2849920e.png');
+                background-size: cover;
+                background-position: center;
+            }
+            .anim-element { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="media-bg">
+        <video 
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_133255_956f653f-5d80-4b06-abd5-0f46c98b60fa.mp4" 
+            poster="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_132328_5f9029c8-218f-4489-82b6-29ff2849920e.png"
+            autoplay muted loop playsinline preload="auto">
+        </video>
+    </div>
+    <div class="scrim"></div>
+
+    <nav class="nav">
+        <a href="#" class="nav__logo">ECHOID</a>
+        <div class="nav__indicator" id="slide-counter">01 / 08</div>
+    </nav>
+
+    <main class="scroll-container" id="scroll-container">
+
+        <!-- Слайд 1: Главный экран -->
+        <section class="slide slide--hero" data-index="1">
+            <div class="panel">
+                <div class="chip anim-element delay-1">[ ТЕМА 1.1 ]</div>
+                <h1 class="h1 anim-element delay-2">ФИНАНСОВЫЙ<br>РЫНОК</h1>
+                <p class="tagline anim-element delay-3">Роль финансового рынка в экономической системе государства.</p>
+            </div>
+            <div class="scroll-indicator">Скролл вниз</div>
+        </section>
+
+        <!-- Слайд 2 -->
+        <section class="slide slide--content" data-index="2">
+            <div class="panel content-box">
+                <div class="chip anim-element delay-1">[ РОЛЬ И МЕСТО ]</div>
+                <h2 class="h2 anim-element delay-2">Рынок ценных бумаг</h2>
+                <div class="body-text anim-element delay-3">
+                    <p>Рынок ценных бумаг — важнейший сегмент финансового рынка РФ, обеспечивающий перераспределение свободных капиталов. Он трансформирует сбережения населения и временно свободные средства предприятий в прямые инвестиции для реального сектора.</p>
+                    <div class="example-block anim-element delay-4">
+                        <strong>Пример из практики:</strong> Привлечение капитала российскими компаниями (например, IPO «Астра» или «Совкомбанк») через <em>Московскую биржу (MOEX)</em> для расширения производства и IT-инфраструктуры, минуя дорогие банковские кредиты.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 3 -->
+        <section class="slide slide--content" data-index="3">
+            <div class="panel content-box">
+                <div class="chip anim-element delay-1">[ ОСНОВНОЙ ТОВАР ]</div>
+                <h2 class="h2 anim-element delay-2">Финансовые инструменты</h2>
+                <div class="body-text anim-element delay-3">
+                    <p>На финансовом рынке торгуют не физическими объектами, а <strong>правами и обязательствами</strong>. Финансовый инструмент — это договор, в результате которого возникает финансовый актив у одной стороны и обязательство у другой.</p>
+                    <div class="example-block anim-element delay-4">
+                        <strong>Примеры активов:</strong>
+                        <ul>
+                            <li><span class="highlight">Акции:</span> Доля в бизнесе (Сбербанк, Газпром, Яндекс).</li>
+                            <li><span class="highlight">Облигации:</span> Долг государства или компании (ОФЗ, корпоративные бонды).</li>
+                            <li><span class="highlight">Деривативы:</span> Производные инструменты (фьючерсы на нефть Brent или валютные пары).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 4 -->
+        <section class="slide slide--content" data-index="4">
+            <div class="panel content-box">
+                <div class="chip anim-element delay-1">[ ИНДИКАТОРЫ ]</div>
+                <h2 class="h2 anim-element delay-2">Ключевые показатели</h2>
+                <div class="body-text anim-element delay-3">
+                    <ul>
+                        <li><strong>Капитализация рынка:</strong> Суммарная стоимость всех торгуемых ценных бумаг.</li>
+                        <li><strong>Объем торгов:</strong> Совокупная стоимость сделок за определенный период.</li>
+                        <li><strong>Ликвидность:</strong> Скорость, с которой актив можно конвертировать в деньги без существенной потери стоимости.</li>
+                    </ul>
+                    <div class="example-block anim-element delay-4">
+                        <strong>Пример из практики:</strong> <em>Индекс МосБиржи (IMOEX)</em> выступает главным барометром состояния российской экономики. Падение или рост индекса отражает общие настроения инвесторов и капитализацию крупнейших компаний.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 5 -->
+        <section class="slide slide--content" data-index="5">
+            <div class="panel content-box">
+                <div class="chip anim-element delay-1">[ ЭКОСИСТЕМА ]</div>
+                <h2 class="h2 anim-element delay-2">Структура рынка</h2>
+                <div class="body-text anim-element delay-3">
+                    <p>Современный финансовый рынок представляет собой сложную экосистему, в которой взаимодействуют множество институтов:</p>
+                    <ul>
+                        <li><strong>Денежный рынок:</strong> краткосрочные займы и ликвидность.</li>
+                        <li><strong>Рынок капиталов:</strong> средне- и долгосрочные инвестиции (акции, облигации).</li>
+                        <li><strong>Валютный рынок и рынок деривативов.</strong></li>
+                    </ul>
+                    <p>Бесперебойную работу обеспечивают инфраструктурные организации: биржи (MOEX, СПБ Биржа), брокеры, депозитарии и клиринговые центры.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 6 -->
+        <section class="slide slide--content" data-index="6">
+            <div class="panel content-box">
+                <div class="chip anim-element delay-1">[ ОПРЕДЕЛЕНИЕ ]</div>
+                <h2 class="h2 anim-element delay-2">Ценная бумага</h2>
+                <div class="body-text anim-element delay-3">
+                    <p><strong>Ценная бумага</strong> — это документ (или электронная запись по счетам депо), удостоверяющий с соблюдением установленной формы и обязательных реквизитов имущественные права, осуществление или передача которых возможны только при его предъявлении или соответствующем учете.</p>
+                    <div class="example-block anim-element delay-4">
+                        <strong>Понимание на практике:</strong> Покупая акцию «Лукойла», вы не покупаете баррель нефти физически, вы покупаете электронную запись (права), гарантирующую вам долю в прибыли компании в виде дивидендов.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 7 -->
+        <section class="slide slide--content" data-index="7">
+            <div class="panel content-box">
+                <div class="chip anim-element delay-1">[ МОТИВАЦИЯ ]</div>
+                <h2 class="h2 anim-element delay-2">Цели участников рынка</h2>
+                <div class="body-text anim-element delay-3">
+                    <ul>
+                        <li><span class="highlight">Эмитенты:</span> Привлечение дешевого фондирования, повышение престижа компании, получение объективной рыночной оценки бизнеса.</li>
+                        <li><span class="highlight">Инвесторы:</span> Сохранение капитала от инфляции, получение пассивного дохода (дивиденды, купоны), приумножение средств на долгом горизонте.</li>
+                        <li><span class="highlight">Спекулянты:</span> Заработок на краткосрочной разнице цен (волатильности), обеспечение ликвидности для всего рынка.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 8: Финал -->
+        <section class="slide slide--hero" data-index="8" style="justify-content: center; text-align: center;">
+            <div class="panel" style="align-items: center;">
+                <div class="chip anim-element delay-1">[ ФИНАЛ ]</div>
+                <h2 class="h1 anim-element delay-2" style="font-size: clamp(36px, 5vw, 84px);">СПАСИБО<br>ЗА ВНИМАНИЕ</h2>
+                <p class="tagline anim-element delay-3" style="margin-top: 20px;">Презентация завершена. Материал усвоен.</p>
+                
+                <button class="btn--ghost anim-element delay-4" id="btn-top">
+                    Вернуться в начало
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const counterElement = document.getElementById('slide-counter');
+            const scrollContainer = document.getElementById('scroll-container');
+            const btnTop = document.getElementById('btn-top');
+            
+            const totalSlides = slides.length;
+
+            // Setup Intersection Observer for Slide Animations and Counter
+            const observerOptions = {
+                root: scrollContainer,
+                rootMargin: '0px',
+                threshold: 0.6 // Trigger when 60% of the slide is visible
+            };
+
+            const slideObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add class to trigger CSS transitions on elements inside
+                        entry.target.classList.add('is-visible');
+                        
+                        // Update Navigation Counter
+                        const index = entry.target.getAttribute('data-index');
+                        counterElement.textContent = `0${index} / 0${totalSlides}`;
+                    } else {
+                        // Remove class when out of view so animation plays again when scrolled back
+                        entry.target.classList.remove('is-visible');
+                    }
+                });
+            }, observerOptions);
+
+            slides.forEach(slide => {
+                slideObserver.observe(slide);
+            });
+
+            // Back to top button logic
+            if (btnTop) {
+                btnTop.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    scrollContainer.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
