@@ -127,28 +127,28 @@
         }
         .scroll-container::-webkit-scrollbar { display: none; }
 
-        /* СЛАЙД И ПАНЕЛЬ (ПО ЦЕНТРУ И БОЛЬШЕ) */
+        /* СЛАЙД И ПАНЕЛЬ */
         .slide {
             scroll-snap-align: start;
             height: 100dvh;
             width: 100%;
             display: flex;
             align-items: center;
-            justify-content: center; /* Центрируем плашки на экране */
+            justify-content: center;
             padding: 0 var(--gutter);
             position: relative;
         }
 
         .panel {
-            width: min(80vw, 1000px); /* Увеличена ширина */
+            width: min(80vw, 1000px);
             min-width: 380px; 
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Текст внутри выровнен по левому краю для удобства чтения */
+            align-items: flex-start;
             background: rgba(4, 4, 6, 0.7);
             backdrop-filter: blur(20px) saturate(120%);
             border: 1px solid var(--line-strong);
-            padding: clamp(40px, 5vw, 70px); /* Увеличены отступы */
+            padding: clamp(40px, 5vw, 70px);
             box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
 
@@ -158,7 +158,7 @@
             border: none;
             padding: 0;
             box-shadow: none;
-            align-items: center; /* На прозрачных слайдах (титульник) центрируем текст */
+            align-items: center;
             text-align: center;
         }
         
@@ -198,7 +198,7 @@
         .h2 {
             font-family: var(--font-display);
             font-weight: 300;
-            font-size: clamp(32px, 3.5vw, 54px); /* Увеличен размер заголовка H2 */
+            font-size: clamp(32px, 3.5vw, 54px);
             letter-spacing: 0.02em;
             line-height: 1.15;
             margin-bottom: clamp(24px, 3vw, 40px);
@@ -208,7 +208,7 @@
         .body-text {
             font-family: var(--font-mono);
             font-weight: 300;
-            font-size: clamp(15px, 1.3vw, 20px); /* Увеличен размер основного текста */
+            font-size: clamp(15px, 1.3vw, 20px);
             line-height: 1.7;
             color: var(--text-dim);
             letter-spacing: 0.02em;
@@ -290,7 +290,7 @@
 
         .carousel__img {
             width: 100%;
-            height: 350px; /* Увеличена высота картинок */
+            height: 350px;
             object-fit: cover;
             filter: grayscale(100%) contrast(120%) brightness(0.8);
             transition: filter 0.4s ease;
@@ -380,7 +380,6 @@
 </head>
 <body>
 
-    <!-- ФОН (Строго по URL Cloudfront из шаблона ECHOID) -->
     <div class="media-bg">
         <video 
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_133255_956f653f-5d80-4b06-abd5-0f46c98b60fa.mp4" 
@@ -403,7 +402,7 @@
                 <div class="chip anim-element delay-1">[ ТЕМА 1.1 ]</div>
                 <h1 class="h1 anim-element delay-2">ФИНАНСОВЫЙ<br>РЫНОК</h1>
                 <p class="body-text anim-element delay-3" style="text-align: center; max-width: 800px; margin: 0 auto;">
-                    Роль и место рынка ценных бумаг в составе финансового рынка[span_1](start_span)[span_1](end_span).
+                    Роль и место рынка ценных бумаг в составе финансового рынка.
                 </p>
                 <div class="authors-block anim-element delay-4">
                     Выполнили студенты:<br>
@@ -419,7 +418,7 @@
                 <div class="chip anim-element delay-1">[ ЭКОНОМИКА ]</div>
                 <h2 class="h2 anim-element delay-2">Роль в системе государства</h2>
                 <div class="body-text anim-element delay-3">
-                    <p>Роль финансового рынка в экономической системе Государства[span_2](start_span)[span_2](end_span) заключается в обеспечении бесперебойного перераспределения капитала.</p>
+                    <p>Роль финансового рынка в экономической системе Государства заключается в обеспечении бесперебойного перераспределения капитала.</p>
                     <ul>
                         <li>Трансформация сбережений населения в инвестиции.</li>
                         <li>Финансирование дефицита государственного бюджета.</li>
@@ -435,7 +434,7 @@
                 <div class="chip anim-element delay-1">[ ТОВАР РЫНКА ]</div>
                 <h2 class="h2 anim-element delay-2">Финансовые инструменты</h2>
                 <div class="body-text anim-element delay-3">
-                    <p>Понятие финансового инструмента как основного товара финансового рынка[span_3](start_span)[span_3](end_span) описывает контракты, формирующие активы и обязательства.</p>
+                    <p>Понятие финансового инструмента как основного товара финансового рынка описывает контракты, формирующие активы и обязательства.</p>
                     <p>В отличие от реального сектора, товаром выступают <strong>имущественные права</strong> (например, право на получение дивидендов или возврат долга с процентами).</p>
                 </div>
             </div>
@@ -447,7 +446,7 @@
                 <div class="chip anim-element delay-1">[ МЕТРИКИ ]</div>
                 <h2 class="h2 anim-element delay-2">Ключевые показатели</h2>
                 <div class="body-text anim-element delay-3">
-                    <p>Анализ состояния рынка требует изучения конкретных метрик. Ключевые показатели финансового рынка[span_4](start_span)[span_4](end_span):</p>
+                    <p>Анализ состояния рынка требует изучения конкретных метрик. Ключевые показатели финансового рынка:</p>
                     <ul>
                         <li><span class="highlight">Капитализация:</span> Общая рыночная стоимость торгуемых компаний.</li>
                         <li><span class="highlight">Объем торгов:</span> Ликвидность и активность инвесторов.</li>
@@ -463,8 +462,8 @@
                 <div class="chip anim-element delay-1">[ СТРУКТУРА ]</div>
                 <h2 class="h2 anim-element delay-2">Система рынка</h2>
                 <div class="body-text anim-element delay-3">
-                    <p>Структура финансового рынка[span_5](start_span)[span_5](end_span) включает в себя кредитный, валютный, страховой рынки и рынок ценных бумаг.</p>
-                    <p><strong>Определение ценной бумаги[span_6](start_span)[span_6](end_span):</strong> Это строго формализованный документ, удостоверяющий имущественные права, осуществление которых возможно только при его предъявлении или учете.</p>
+                    <p>Структура финансового рынка включает в себя кредитный, валютный, страховой рынки и рынок ценных бумаг.</p>
+                    <p><strong>Определение ценной бумаги:</strong> Это строго формализованный документ, удостоверяющий имущественные права, осуществление которых возможно только при его предъявлении или учете.</p>
                 </div>
             </div>
         </section>
@@ -475,7 +474,7 @@
                 <div class="chip anim-element delay-1">[ УЧАСТНИКИ ]</div>
                 <h2 class="h2 anim-element delay-2">Мотивация сторон</h2>
                 <div class="body-text anim-element delay-3">
-                    <p>Цели, достигаемые участниками на рынке ценных бумаг[span_7](start_span)[span_7](end_span), кардинально различаются:</p>
+                    <p>Цели, достигаемые участниками на рынке ценных бумаг, кардинально различаются:</p>
                     <ul>
                         <li><strong>Эмитенты:</strong> Привлечение капитала для развития (IPO, выпуск облигаций).</li>
                         <li><strong>Инвесторы:</strong> Сохранение средств от инфляции и получение дохода.</li>
@@ -485,7 +484,7 @@
             </div>
         </section>
 
-        <!-- Слайд 7: Интерактивная карусель с картинками -->
+        <!-- Слайд 7 -->
         <section class="slide" data-index="7">
             <div class="panel">
                 <div class="chip anim-element delay-1">[ ВИЗУАЛИЗАЦИЯ ]</div>
@@ -518,7 +517,7 @@
             </div>
         </section>
 
-        <!-- Слайд 8: Финал -->
+        <!-- Слайд 8 -->
         <section class="slide" data-index="8">
             <div class="panel panel--transparent">
                 <div class="chip anim-element delay-1">[ ФИНАЛ ]</div>
@@ -539,7 +538,6 @@
             const btnTop = document.getElementById('btn-top');
             const totalSlides = slides.length;
 
-            // 1. Анимация при скролле (Intersection Observer)
             const observerOptions = {
                 root: scrollContainer,
                 rootMargin: '0px',
@@ -560,7 +558,6 @@
 
             slides.forEach(slide => slideObserver.observe(slide));
 
-            // 2. Кнопка "Начать заново"
             if (btnTop) {
                 btnTop.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -568,13 +565,12 @@
                 });
             }
 
-            // 3. Логика карусели картинок на Слайде 7
             const carousel = document.getElementById('image-carousel');
             const btnPrev = document.getElementById('btn-prev');
             const btnNext = document.getElementById('btn-next');
 
             if (carousel && btnPrev && btnNext) {
-                const scrollAmount = carousel.offsetWidth; // Ширина одного элемента
+                const scrollAmount = carousel.offsetWidth;
                 
                 btnNext.addEventListener('click', () => {
                     carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
